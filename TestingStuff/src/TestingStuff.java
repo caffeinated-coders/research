@@ -10,22 +10,23 @@ public class TestingStuff {
         //Let's do some caffine calculations. 
         
         int time = 0;             //in hours
-        int initialCaffine = 453; //in mg of course
-        int initialBloodCaff = 0; //don't really know the units of this one
+        int initialCaffine = 200; //in mg of course     //amount of coffee in body (decays exponentially)
+        int initialBloodCaff = 0; //in mg               //amount of coffee in blood and brain
         
         double caffine = initialCaffine;
         double blood = initialBloodCaff;
         
-        int iterations = 10; 
+        int iterations = 24; 
         
         for(; time < iterations; time++) {
-            caffine = caffineTick(caffine);
-            blood = bloodTick(blood,caffine);
             double bout = Math.round(blood * 100.0) / 100.0;
             double cafout = Math.round(caffine * 100.0) / 100.0;
-            System.out.println("Caffine in Body at time t= " + time + " is " + cafout + "mg");
-            System.out.println("Caffine in Blood at time t= " + time + " is " + bout + "mg");
+            System.out.print("At t = " + time + " Body caffine is " + cafout + "mg");
+            System.out.println(" and caffine in brain is " + bout + "mg");
             System.out.println("");
+            caffine = caffineTick(caffine);
+            blood = bloodTick(blood,caffine);
+            
         }
 
         
@@ -37,7 +38,7 @@ public class TestingStuff {
     }
     
     public static double caffineTick(double caffineAmount) {
-        double halfLife = 1;
+        double halfLife = 6; //
         double changeInLevels = -(Math.log(2) / halfLife) * caffineAmount;
         
         double result = caffineAmount + changeInLevels;
@@ -46,9 +47,9 @@ public class TestingStuff {
     
     public static double bloodTick(double Blood, double caffineAmount) {
         
-        double CAFFINE_METABOLISM = 2.5; //per hour
-        double CAFFINE_ABSORBTION = 2.7; //per hour
-        double changeInBlood = -(CAFFINE_METABOLISM * Blood) + (CAFFINE_ABSORBTION * caffineAmount);
+        double CAFFINE_METABOLISM = 1/2.5; //per hour
+        double CAFFINE_ABSORBTION = 1/2.7; //per hour
+        double changeInBlood = (-CAFFINE_METABOLISM * Blood) + (CAFFINE_ABSORBTION * caffineAmount);
         
         double result = Blood + changeInBlood;
         
