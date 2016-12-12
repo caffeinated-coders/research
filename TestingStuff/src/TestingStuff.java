@@ -10,7 +10,7 @@ public class TestingStuff {
         //Let's do some caffine calculations. 
         
         int time = 0;             //in hours
-        int initialCaffine = 200; //in mg of course     //amount of coffee in body (decays exponentially)
+        int initialCaffine = 500; //in mg of course     //amount of coffee in body (decays exponentially)
         int initialBloodCaff = 0; //in mg               //amount of coffee in blood and brain
         
         double caffine = initialCaffine;
@@ -38,7 +38,7 @@ public class TestingStuff {
     }
     
     public static double caffineTick(double caffineAmount) {
-        double halfLife = 6; //
+        double halfLife = 5.7; //
         double changeInLevels = -(Math.log(2) / halfLife) * caffineAmount;
         
         double result = caffineAmount + changeInLevels;
